@@ -1,0 +1,32 @@
+# Ethical-Hacking-Course-Notes-
+
+This is a repo for my work on the ethical hacking course on Udemy. 
+
+### MAC Address 
+ - Permanent, Physical, Unique 
+ - Used to identify devices 
+ 
+### Why would you change it? 
+ - Impersonate other devices
+ - Bypass filters
+ - Increase anonymity 
+ - ifconfig
+ - There are multiple types of interfaces, eg: wlan, eth 
+ 
+ ### Manually changing MAC address [You may need to use sudo ]
+  - ifconfig eth0 down #Disabling interface 
+  - ifconfig eth0 hw ether 00:11:22:33:44:55  #Modify option of ether  | Make sure it's 12 characters & separated with : 
+  - ifconfig eth0 up #enabling the interface 
+  - ifconfig #To check 
+### PYTHON
+  - SUBPROCESS: Using a module to execute system commands | call function 
+  - OS dependent 
+    - SYNTAX 
+    - import subprocess 
+    - subprocess.call("COMMAND that you wanna run", shell=True)
+  - Call function
+  - Runs in the foreground 
+  - Waits for the command to finish executing (This is what we want so the system waits for the change of MAC address and then does other stuff)
+
+### Shortcuts Used 
+Ctrl + d to duplicate the same line in the editor 

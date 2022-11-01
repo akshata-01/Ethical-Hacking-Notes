@@ -1,5 +1,5 @@
-# Ethical-Hacking-Course-Notes-
-This is a repo for my work on the ethical hacking course on Udemy. 
+# Ethical-Hacking-Notes
+Documentation for my notes on Ethical Hacking. 
 
 ### What's Hacking
  - Simply put, Gaining access to something you were not supposed to have access to. Doing stuff that you're not supposed to be able to do, 

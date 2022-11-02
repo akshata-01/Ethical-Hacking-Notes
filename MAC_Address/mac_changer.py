@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+
+import subprocess #Importing subprocess module 
+import optparse
+
+def get_arguments():
+    parser = optparse.OptionParser() #variable = module.Class()
+
+    parser.add_option( "-i" , "--interface", dest="network_interface", help="Interface to change it's MAC Adress") #Options a user will give 
+    parser.add_option( "-m" , "--mac", dest="mac_address", help= "New MAC Adress") #Options a user will give 
+    
+    return parser.parse_args() #Allows the obj to understand what the user has given 
+
+def change_mac_address(network_interface, mac_address):
+    print("[+] Changing MAC address for " + network_interface + " to " + mac_address)
+    subprocess.call(["sudo", "ifconfig", network_interface, "down"])
+    subprocess.call(["sudo","ifconfig", network_interface, "hw", "ether", mac_address])
+    subprocess.call(["sudo","ifconfig", network_interface, "up"])
+
+(options, arguments) = get_arguments()
+change_mac_address(options.network_interface, options.mac_address)
+

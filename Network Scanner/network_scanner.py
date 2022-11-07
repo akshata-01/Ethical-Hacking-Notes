@@ -4,11 +4,13 @@ import scapy.all as scapy
 
 def scan(ip):
     arp_request = scapy.ARP(pdst=ip) #A packet that asks a specific IP 
-    arp_request.show() #Shows details of the package 
+    #arp_request.show() #Shows details of the package 
     broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff") #This will create a ether object and store an instance in variable boradcast 
-    broadcast.show()
+    #broadcast.show()
     arp_request_boradcast = broadcast/arp_request #appending our 2 packtes using / 
-    arp_request_boradcast.show()
+    [answered, unanswered] = scapy.srp(arp_request_boradcast, timeout=1) #sr is function of sending and receiving while srp actually allows custom ether, adding a timeout for 1s helps you to not get stuck  
+    print(answered.summary())
+    #arp_request_boradcast.show()
     #scapy.ls(scapy.Ether)
     #scapy.ls(scapy.ARP) #ls function by scapy gives names of the variables you can set for ARP class 
     #arp_request.pdst = ip

